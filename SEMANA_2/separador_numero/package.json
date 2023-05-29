@@ -1,0 +1,11 @@
+{
+  "name": "separador_numero",
+  "version": "1.0.0",
+  "description": "Separador de números",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
