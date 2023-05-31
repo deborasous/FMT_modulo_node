@@ -34,9 +34,30 @@ module.exports = {
     return res.status(400).json({ message: `Indice de troca inválido` });
   },
 
-  async listNames(req, res) {
-    console.log(req.body, 'fff');
-    const guestNames = readDatas('user.json');
-    console.log(guestNames);
+  //
+  async generateDate(req, res) {
+    const { month } = req.params; //pega o mês digitado pelo usuário
+    const year = new Date().getFullYear(); //pega ano atual
+    console.log(month, year);
+
+    //verifica se o mês é válido
+    if (month < 1 || month > 12) {
+      return res.status(400).json({ message: 'Mês informado não existe.' });
+    }
+
+    //obter o numero de dias do mes informado
+    const numberDays = new Date(year, month, 0).getDate();
+
+    //cria um array com todos as datas do mês e ano atual
+    const datas = [];
+    for (let day = 1; day <= numberDays; day++) {
+      const data = `${day.toString().padStart(2, '0')}/${month
+        .toString()
+        .padStart(2, '0')}/${year}`;
+      datas.push(data);
+    }
+
+    res.json(datas);
+    console.log(datas);
   },
 };

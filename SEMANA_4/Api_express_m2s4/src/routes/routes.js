@@ -1,7 +1,8 @@
 const express = require('express');
 const routes = express.Router();
-const { listNames, updatData } = require('../controller/controller');
+const {  updatData, generateDate } = require('../controller/controller');
 
 routes.patch('/nomes', updatData);
+routes.get('/date/:month', generateDate);
 
 module.exports = routes;
