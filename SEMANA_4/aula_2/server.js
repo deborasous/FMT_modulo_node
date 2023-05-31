@@ -1,12 +1,13 @@
-const express = require('express')
-const app = express()
-const port = 3333
+const express = require('express');
+const app = express();
+const rotas = require('./src/routes');
+const port = 3333;
 
-app.use(express.json())
+app.use(express.json());
 
 // Rotas
-app.get('/', (req, res) => {
-  res.send('Olá, mundo!');
-});
+app.use(rotas);
 
-app.listen(port, ()=> {console.log(`Servidor rodando na porta ${port}`)})
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
+});

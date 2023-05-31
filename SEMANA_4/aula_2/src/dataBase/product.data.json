@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "Prod 1",
+        "price": 25,
+        "desc": "Developer"
+    },
+    {
+        "id": 2,
+        "name": "Prod 2",
+        "price": 32,
+        "desc": "Product Manager"
+    },
+    {
+        "id": 3,
+        "name": "Prod 3",
+        "price": 18,
+        "desc": "Intern"
+    },
+    {
+        "id": 4,
+        "name": "Prod 4",
+        "price": 23,
+        "desc": "Developer"
+    },
+    {
+        "id": 5,
+        "name": "Prod 5",
+        "price": 31,
+        "desc": "UX Designer"
+    },
+    {
+        "id": 6,
+        "name": "Prod 6",
+        "price": 35,
+        "desc": "Tech Lead"
+    }
+]
