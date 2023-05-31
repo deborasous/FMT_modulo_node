@@ -1,17 +1,25 @@
-const fs = require('fs')
-const path = require("path")
+const fs = require('fs');
 
-function readDatas() {
+function createFile(fileName, datas) {
   try {
-    const filePath = path.join(__dirname, 'src', 'database', 'user.json')
-    const data = fs.readFileSync(filePath, 'utf-8')
-    const jsonData = JSON.parse(data)
-    return jsonData
+    fs.writeFileSync('./src/database/' + fileName, JSON.stringify(datas));
   } catch (error) {
-    return "Erro ao executar"
+    throw error;
+  }
+}
+
+function readDatas(fileName) {
+  try {
+    const filePath = JSON.parse(
+      fs.readFileSync('./src/database/' + fileName, 'utf-8')
+    );
+    return filePath;
+  } catch (error) {
+    return 'Erro ao executar';
   }
 }
 
 module.exports = {
-  readDatas
-}
+  createFile,
+  readDatas,
+};
