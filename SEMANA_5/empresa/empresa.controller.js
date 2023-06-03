@@ -49,6 +49,12 @@ module.exports = {
       },
     ];
 
+    //verificar se o cnpj já está na base de dados
+    const empresaExiste = empresas.find((empresa) => empresa.cnpj === cnpj);
+    if (empresaExiste) {
+      return res.status(400).send({ message: 'CNPJ já cadastrado.' });
+    }
+
     criarOuAtualizar('data.json', totalEmpresas);
     console.log(totalEmpresas);
 
@@ -90,6 +96,7 @@ module.exports = {
 
       //find busca a empresa no array 'empresas' com o CNPJ correspondente ao valor do cnpj do params. Caso não hava uma empresa com o cnpj indicado, retorna um erro 404
       const empresa = empresas.find((emp) => emp.cnpj === cnpj);
+      console.log(empresa);
 
       if (!empresa) {
         return res.status(404).json({ message: 'Empresa não encontrada' });
@@ -114,6 +121,35 @@ module.exports = {
       return res
         .status(500)
         .json({ message: 'Erro ao realizar a alteração', error });
+    }
+  },
+
+  async excluirEmpresa(req, res) {
+    const { cnpj } = req.params;
+
+    try {
+      const empresas = pegarDados('data.json');
+      const excludedCompany = empresas.find((empresa) => empresa.cnpj === cnpj);
+
+      console.log(excludedCompany, 'sdsd');
+      if (!excludedCompany) {
+        return res
+          .status(404)
+          .json({ message: `A empresa não foi encontrada.` });
+      }
+
+      //filtra e retorna as empresas que tem o cnpj diferente do cnpj fornecido
+      const residualCompany = empresas.filter(
+        (empresa) => empresa.cnpj !== cnpj
+      );
+
+      criarOuAtualizar('data.json', residualCompany);
+
+      return res.status(200).json({ message: 'Empresa excluída com sucesso' });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: 'Ocorreu um erro ao excluir a empresa.' });
     }
   },
 };

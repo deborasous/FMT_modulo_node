@@ -21,6 +21,13 @@ function pegarDados(nomeDoArquivo) {
   }
 }
 
+//pattern de mensagens
+function codigosDeErros(codigos) {
+  const mensagem={
+    jaCadastrado: "CNPJ já cadastrado."
+  }
+}
+
 
 module.exports = {
   criarOuAtualizar,

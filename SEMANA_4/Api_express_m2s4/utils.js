@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-function createFile(fileName, datas) {
+function createFileOrUpdate(fileName, datas) {
   try {
     fs.writeFileSync('./src/database/' + fileName, JSON.stringify(datas));
   } catch (error) {
@@ -20,6 +20,6 @@ function readDatas(fileName) {
 }
 
 module.exports = {
-  createFile,
+  createFileOrUpdate,
   readDatas,
 };
