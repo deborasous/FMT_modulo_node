@@ -1,4 +1,5 @@
 const { readDatas, createFile } = require('../../utils');
+const { use } = require('../routes/users.routes');
 
 module.exports = {
   async updatData(req, res) {
@@ -59,5 +60,37 @@ module.exports = {
 
     res.json(datas);
     console.log(datas);
+  },
+
+  async filterData(req, res) {
+    const { name, ageMin, ageMax, state, job } = req.query;
+
+    const users = readDatas('user.json');
+
+    //filtrar
+    const filteredData = users.filter((user) => {
+      if (name && user.name.toLowerCase() !== name.toLowerCase()) {
+        return false;
+      }
+
+      if (ageMin && user.age < Number(ageMin)) {
+        return false;
+      }
+
+      if (ageMax && user.age > Number(ageMax)) {
+        return false;
+      }
+
+      if (state && user.state.toLowerCase() !== state.toLowerCase()) {
+        return false;
+      }
+
+      if (job && user.job.toLowerCase() !== job.toLowerCase()) {
+        return false;
+      }
+      return true;
+    });
+
+    res.json(filteredData);
   },
 };

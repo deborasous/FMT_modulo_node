@@ -41,6 +41,7 @@ module.exports = rotas;
 //   });
 // });
 
+//==* QUERY *==//
 // rotas.get('/produtos', (req, res) => {
 //   // Acessando os parâmetros de consulta usando req.query
 //   const cor = req.query.cor;
@@ -56,6 +57,7 @@ module.exports = rotas;
 //   //testar: http://localhost:3333/produtos?cor=vermelho&precoMin=10&precoMax=50
 // });
 
+//==*PARAMS *==//
 // rotas.get('/produtos/:id', (req, res) => {
 //   //PARAMS CRIAR ROTAS DINAMICAS - nesse caso é obrigatório e o envio é feito na URL ...'/user/:idade'..., assim a URL passa a ser http://localhost:3333/user/nome e não mais http://localhost:3333/user
 //   const IdProduct = req.params.id;
