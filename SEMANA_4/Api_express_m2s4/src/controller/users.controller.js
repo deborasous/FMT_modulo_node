@@ -1,5 +1,4 @@
-const { readDatas, createFile } = require('../../utils');
-const { use } = require('../routes/users.routes');
+const { readDatas, createFileOrUpdate } = require('../../utils');
 
 module.exports = {
   async updatData(req, res) {
@@ -33,6 +32,54 @@ module.exports = {
     }
 
     return res.status(400).json({ message: `Indice de troca inválido` });
+  },
+
+  async changeSingleData(req, res) {
+    const id = parseInt(req.params.id);
+    const { id: bodyId, name, age, job, state } = req.body;
+
+    const users = readDatas('user.json');
+
+    const existingUser = users.find((user) => user.id === id);
+
+    if (!existingUser) {
+      return res.status(404).send('Usuário não encontrado');
+    }
+
+    if (bodyId !== undefined && id !== bodyId) {
+      return res.status(400).send('ID do params diverge do ID do body.');
+    }
+
+    console.log(users, 'ee');
+
+    if (
+      existingUser.name === name &&
+      existingUser.age === age &&
+      existingUser.job === job &&
+      existingUser.state === state
+    ) {
+      return res.send('Não há alterações para serem feitas.');
+    }
+
+    const updatedUsers = users.map((user) => {
+      if (user.id === id) {
+        return {
+          ...user,
+          name: name || user.name,
+          age: age || user.age,
+          job: job || user.job,
+          state: state || user.state,
+        };
+      }
+      return user;
+    });
+
+    createFileOrUpdate('user.json', updatedUsers);
+
+    return res.status(200).send({
+      mensagem: 'Usuário Atualizado com sucesso!',
+      dados: readDatas('user.json'),
+    });
   },
 
   //
