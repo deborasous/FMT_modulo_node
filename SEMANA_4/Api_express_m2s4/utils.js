@@ -4,7 +4,8 @@ function createFileOrUpdate(fileName, datas) {
   try {
     fs.writeFileSync('./src/database/' + fileName, JSON.stringify(datas));
   } catch (error) {
-    throw error;
+    console.error(error);
+    throw new Error('Erro ao criar ou atualizar o arquivo.');
   }
 }
 

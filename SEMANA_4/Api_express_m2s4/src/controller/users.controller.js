@@ -82,7 +82,6 @@ module.exports = {
     });
   },
 
-  //
   async generateDate(req, res) {
     const { month } = req.params; //pega o mês digitado pelo usuário
     const year = new Date().getFullYear(); //pega ano atual
@@ -139,5 +138,34 @@ module.exports = {
     });
 
     res.json(filteredData);
+  },
+
+  async deleteUser(req, res) {
+    const id = parseInt(req.params.id);
+    console.log(id, 'iddd');
+
+    try {
+      let users = await readDatas('user.json');
+      console.log(users, 'ddd');
+
+      const existUserIndex = users.findIndex((user) => user.id === id);
+
+      if (existUserIndex === -1) {
+        return res
+          .status(404)
+          .send({ error: 'Nenhum usuário encontrado com esse ID.' });
+      }
+
+      //remover item do id correspondente
+      users.splice(existUserIndex, 1);
+
+      createFileOrUpdate('user.json', users);
+
+      return res.status(200).json({ mensagem: 'Item excluido com sucesso.' });
+    } catch (error) {
+      return res.status(500).json({
+        erro: `Erro ao atualizar o arquivo produtos. ${console.log(error)}`,
+      });
+    }
   },
 };
