@@ -181,4 +181,29 @@ module.exports = {
 
     return res.json({ name: existUser.name });
   },
+
+  async convert(req, res) {
+    const { item } = req.body;
+
+    //verificar se o corpo da req é uma string
+    if (typeof item !== 'string') {
+      return res
+        .status(400)
+        .json({ erro: `O corpo da requisição deve ser uma string.` });
+    }
+
+    //converter as letras minúsculas para maiúsculas e vice-versa
+    const convertedItem = item
+      .split('')
+      .map((char) => {
+        if (char === char.toLowerCase()) {
+          return char.toUpperCase();
+        } else {
+          return char.toLowerCase();
+        }
+      })
+      .join('');
+
+    res.json({ item: convertedItem });
+  },
 };
