@@ -146,7 +146,6 @@ module.exports = {
 
     try {
       let users = await readDatas('user.json');
-      console.log(users, 'ddd');
 
       const existUserIndex = users.findIndex((user) => user.id === id);
 
@@ -167,5 +166,19 @@ module.exports = {
         erro: `Erro ao atualizar o arquivo produtos. ${console.log(error)}`,
       });
     }
+  },
+
+  async getUserName(req, res) {
+    const id = parseInt(req.params.id);
+
+    const users = readDatas('user.json');
+
+    const existUser = users.find((user) => user.id === id);
+
+    if (!existUser) {
+      return res.status(404).json({ error: `Usuário não encontrado.` });
+    }
+
+    return res.json({ name: existUser.name });
   },
 };
