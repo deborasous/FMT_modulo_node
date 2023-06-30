@@ -15,3 +15,9 @@ npx sequelize-cli db:migrate
 ```
 npx sequelize-cli db:migrate:undo
 ```
+
+#### Adiconar coluna a tabela
+
+```
+npx sequelize-cli migration:generate --name add_column_in_tables
+```

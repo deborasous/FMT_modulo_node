@@ -1,6 +1,7 @@
 const {
   getAllCategories,
   createCategory,
+  updateOneCategory,
 } = require('../controllers/category.controller');
 const { Router } = require('express');
 
@@ -10,6 +11,7 @@ class CategoryRouter {
 
     categoryRoutes.post('/criarCategoria', createCategory);
     categoryRoutes.get('/listarCategorias', getAllCategories);
+    categoryRoutes.get('/alterarCategoria/:id', updateOneCategory);
 
     return categoryRoutes;
   }
