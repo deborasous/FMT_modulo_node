@@ -10,6 +10,8 @@ class TraineeRouter {
 
     traineeRoutes.post('/criartrainee', createTrainee);
     traineeRoutes.get('/listatrainee', listTrainees);
+    traineeRoutes.get('/listaumtrainee/:id', listOneTrainee);
+    traineeRoutes.get('/atualizartrainee/:id', updateTrainee);
 
     return traineeRoutes;
   }
