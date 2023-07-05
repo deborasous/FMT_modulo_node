@@ -1,46 +1,49 @@
+const { DATE, INTEGER, DATEONLY, BOOLEAN, FLOAT } = require('sequelize');
 const { connection } = require('../database/connection');
-const { DATE, FLOAT, DATEONLY, BOOLEAN } = require('sequelize');
-const { Trainee } = require('./trainee');
+const { Trainees } = require('./trainee');
 const { Category } = require('./category');
-const { Company } = require('./companies');
+const { Companies } = require('./companies');
 
 const Contract = connection.define(
   'Contract',
   {
-    trainee_id: {
+    traineeId: {
       type: INTEGER,
       references: {
-        model: Trainee,
+        model: Trainees,
         key: 'id',
       },
     },
-    category_id: {
+    categoryId: {
       type: INTEGER,
       references: {
         model: Category,
         key: 'id',
       },
     },
-    company_id: {
+    companyId: {
       type: INTEGER,
       references: {
-        model: Company,
+        model: Companies,
         key: 'id',
       },
     },
-    start_validity: DATEONLY,
-    end_validity: DATEONLY,
+    startValidity: DATEONLY,
+    endValidity: {
+      type: DATEONLY,
+      allowNull: true,
+    },
     status: BOOLEAN,
     remuneration: FLOAT,
     extra: FLOAT,
-    created_at: DATE,
-    updated_at: DATE,
+    createdAt: DATE,
+    updatedAt: DATE,
   },
   { underscored: true, paranoid: true }
 );
 
-Contract.belongsTo(Trainee);
+Contract.belongsTo(Trainees);
 Contract.belongsTo(Category);
-Contract.belongsTo(Company);
+Contract.belongsTo(Companies);
 
 module.exports = { Contract };

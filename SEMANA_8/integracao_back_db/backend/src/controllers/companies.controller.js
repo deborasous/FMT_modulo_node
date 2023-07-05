@@ -1,9 +1,9 @@
-const { Company } = require('../models/companies');
+const { Companies } = require('../models/companies');
 
 class CompaniesController {
   async createCompany(req, res) {
     try {
-      const existingCompany = await Company.findOne({
+      const existingCompany = await Companies.findOne({
         where: { cnpj: req.body.cnpj },
       });
       if (existingCompany) {
@@ -27,7 +27,7 @@ class CompaniesController {
         updatedAt,
       } = req.body;
 
-      const dataCompany = await Company.create({
+      const dataCompany = await Companies.create({
         cnpj,
         companyName,
         contact,
@@ -54,7 +54,7 @@ class CompaniesController {
 
   async listCompanies(req, res) {
     try {
-      const companyData = await Company.findAll(
+      const companyData = await Companies.findAll(
         // fazer um select de algum campo, trás somente os campos de cnpj e nome da empresa
         { attributes: ['cnpj', 'companyName'] }
       );
@@ -70,9 +70,9 @@ class CompaniesController {
     try {
       const { id } = req.params;
 
-      const companyData = await Company.findByPk(id);
+      const companyData = await Companies.findByPk(id);
       if (!companyData) {
-        return res.status(400).json({
+        return res.status(404).json({
           error: 'Empresa não encontrada',
         });
       }
@@ -86,7 +86,7 @@ class CompaniesController {
     try {
       const { id } = req.params;
 
-      const companyData = await Company.findByPk(id);
+      const companyData = await Companies.findByPk(id);
       //verificar se existe a empresa
       if (!companyData) {
         return res.status(404).json({
@@ -96,7 +96,7 @@ class CompaniesController {
 
       //verificar se o CNPJ já está sendo usado em outra empresa
       if (req.body.cnpj && req.body.cnpj !== companyData.cnpj) {
-        const existCompany = await Company.findOne({
+        const existCompany = await Companies.findOne({
           where: { cnpj: req.body.cnpj },
         });
         if (existCompany) {

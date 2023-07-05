@@ -1,21 +1,31 @@
 const { connection } = require('../database/connection');
-const { STRING, DATE, BOOLEAN } = require('sequelize');
+const { STRING, DATE, BOOLEAN, INTEGER } = require('sequelize');
 
 const Trainees = connection.define(
   'Trainees',
   {
-    name: STRING,
-    email: STRING,
+    name: {
+      type: STRING,
+    },
+    email: {
+      type: STRING,
+      validate: {
+        isEmail: {
+          msg: 'E-mail inválido.',
+        },
+      },
+      unique: { msg: 'E-mail já cadatrado' },
+    },
     rg: {
       type: STRING,
       validate: {
         len: {
           args: [7, 20],
-          msg: 'O Rg deve ter no mínimo 7 dígitos',
+          msg: 'O RG deve ter no mínimo 7 dígitos',
         },
       },
       unique: {
-        msg: 'Este campo já está na aplicação',
+        msg: 'RG já cadatrado',
       },
     },
     cpf: {
@@ -23,11 +33,11 @@ const Trainees = connection.define(
       validate: {
         len: {
           args: [11, 11],
-          msg: 'Este campo deve ter exatamente 11 caracteres.',
+          msg: 'CPF deve ter exatamente 11 caracteres.',
         },
       },
       unique: {
-        msg: 'Este campo já está na aplicação',
+        msg: 'CPF já cadatrado',
       },
     },
     primaryPhoneContact: STRING,

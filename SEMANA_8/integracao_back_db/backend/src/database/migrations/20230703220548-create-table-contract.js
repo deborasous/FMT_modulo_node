@@ -6,60 +6,71 @@ module.exports = {
     await queryInterface.createTable('contracts', {
       id: {
         type: Sequelize.INTEGER,
-        autoIncrement: true,
         allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
       },
       trainee_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        model: {
-          tableName: 'trainees',
+        references: {
+          model: {
+            tableName: 'trainees',
+          },
+          key: 'id',
         },
-        key: 'id',
       },
       category_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        model: {
-          tableName: 'categories',
+        references: {
+          model: {
+            tableName: 'categories',
+          },
+          key: 'id',
         },
-        key: 'id',
       },
       company_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        model: {
-          tableName: 'companies',
+        references: {
+          model: {
+            tableName: 'companies',
+          },
+          key: 'id',
         },
-        key: 'id',
       },
       start_validity: {
         type: Sequelize.DATEONLY,
-        allowNull: null,
+        allowNull: false,
       },
       end_validity: {
         type: Sequelize.DATEONLY,
-        allowNull: null,
+        allowNull: true,
       },
       status: {
         type: Sequelize.BOOLEAN,
-        allowNull: null,
+        allowNull: false,
       },
       remuneration: {
         type: Sequelize.FLOAT,
-        allowNull: null,
+        allowNull: false,
       },
       extra: {
         type: Sequelize.FLOAT,
-        allowNull: null,
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
-        allowNull: null,
+        allowNull: false,
       },
       updated_at: {
         type: Sequelize.DATE,
-        allowNull: null,
+        allowNull: false,
+      },
+      deleted_at: {
+        type: Sequelize.DATE,
+        allowNull: true,
       },
     });
   },

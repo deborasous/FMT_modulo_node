@@ -3,9 +3,18 @@ const { Router } = require('express');
 const categoryRoutes = require('./category.routes');
 const traineeFromRouter = require('./trainees.routes');
 const companyRoutes = require('./companies.routes');
+const contractRoutes = require('./contracts.routes');
+const userRoutes = require('./user.routes');
 
 const routes = Router();
 
-routes.use('/api', categoryRoutes, traineeFromRouter, companyRoutes);
+routes.use(
+  '/api',
+  categoryRoutes,
+  traineeFromRouter,
+  companyRoutes,
+  contractRoutes,
+  userRoutes
+);
 
 module.exports = routes;

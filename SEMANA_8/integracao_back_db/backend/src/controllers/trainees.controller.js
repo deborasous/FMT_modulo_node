@@ -32,7 +32,7 @@ class TraineeController {
       return res.status(201).send(dataTrainees);
     } catch (error) {
       return res.status(400).send({
-        message: 'Não foi possível criar um registro de estágiario',
+        message: 'Não foi possível criar um registro de estágiario. CPF, RG ou E-mail já cadastrado.',
         cause: error.message,
       });
     }
