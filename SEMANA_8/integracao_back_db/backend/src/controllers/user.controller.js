@@ -1,5 +1,6 @@
 const { User } = require('../models/users');
-const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 class UserController {
   async createOneUser(req, res) {
@@ -24,18 +25,20 @@ class UserController {
     }
   }
 
-  async userLogin(req, res) {
+  async Login(req, res) {
     try {
       const { email, password } = req.body;
 
       const user = await User.findOne({ where: { email: email } });
 
-      if (user.password === password) {
-        return res.status(404).send({ message: 'Usuário não encontrado' });
-        return res.status(200).send({ user, message: 'Login bem-sucedido' });
-      } else {
-        return res.status(400).send({ message: 'Senha inválida' });
+      if (email === user.email && password === user.password) {
+        const token = jwt.sign({ user, logged: true }, process.env.JWT_SECRET);
+
+        return res.json({ token });
       }
+
+      //credenciais invalidas
+      return res.status(401).json({ message: 'Credênciais inválidas' });
     } catch (error) {
       return res
         .status(500)

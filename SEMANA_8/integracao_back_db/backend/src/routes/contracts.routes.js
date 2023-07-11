@@ -5,15 +5,37 @@ const {
   deactivateContract,
 } = require('../controllers/contract.controller');
 const { Router } = require('express');
+const { checkUserRole } = require('../middleware/checkUserRole');
+const { verifyToken } = require('../middleware/auth');
 
 class ContractRouter {
   router() {
     const contractRoutes = Router();
 
-    contractRoutes.post('/criarContrato', createContract);
-    contractRoutes.get('/listarContratos', listContracts);
-    contractRoutes.get('/listarUmContrato/:id', listOneContract);
-    contractRoutes.patch('/terminarContrato/:id', deactivateContract);
+    contractRoutes.post(
+      '/criarContrato',
+      verifyToken,
+      checkUserRole,
+      createContract
+    );
+    contractRoutes.get(
+      '/listarContratos',
+      verifyToken,
+      checkUserRole,
+      listContracts
+    );
+    contractRoutes.get(
+      '/listarUmContrato/:id',
+      verifyToken,
+      checkUserRole,
+      listOneContract
+    );
+    contractRoutes.patch(
+      '/terminarContrato/:id',
+      verifyToken,
+      checkUserRole,
+      deactivateContract
+    );
 
     return contractRoutes;
   }

@@ -5,7 +5,7 @@ const traineeFromRouter = require('./trainees.routes');
 const companyRoutes = require('./companies.routes');
 const contractRoutes = require('./contracts.routes');
 const userRoutes = require('./user.routes');
-
+const rbacRoutes = require('./rbac.routes');
 const routes = Router();
 
 routes.use(
@@ -14,7 +14,8 @@ routes.use(
   traineeFromRouter,
   companyRoutes,
   contractRoutes,
-  userRoutes
+  userRoutes,
+  rbacRoutes
 );
 
 module.exports = routes;

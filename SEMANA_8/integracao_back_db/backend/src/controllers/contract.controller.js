@@ -28,7 +28,9 @@ class ContractController {
         extra,
       });
 
-      return res.status(201).send(dataContract);
+      return res
+        .status(201)
+        .send({ message: 'Contrato criado com sucesso!', dataContract });
     } catch (error) {
       return res.status(400).send({
         message: 'Não foi possível criar um contrato.',
